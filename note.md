@@ -64,3 +64,21 @@ using mongoose for mogodb , mongoose give us predefine function so we dont have 
     In the example above, if someAsyncFunction throws an error, it will be caught by the asyncHandler, and the error will be forwarded to the Express.js error-handling middleware.
 
     Feel free to customize the headings and examples as needed for your specific README.md file.
+
+
+# error handeling
+    To handel error globally we can use middleware with '{must-> 4 paramenter}' {error, req, res, next} 
+    so to use error handeling middleware we have to use next() to pass the error to next middleware , pass anthing to next(anything) automatically go for error handeling middleware
+    but if we are using async await then we have to use asyncHandler automatically pass the error to next middleware so we dont have to use next() to pass the error to next middleware
+    eg: blow
+        
+        ```const createContact = asyncHandler(async function (req, res) {
+        // console.log(req.body);
+        const { name, email, phone } = req.body;
+        if (!name || !email || !phone) {
+            res.status(400);
+            throw new Error(`All fields are mandatory looking for name, email and phone you have given-> ${name} ${email} ${phone}`);
+        }
+        const contact = await Contact.create({ name, email, phone });
+        res.status(201).json(contact);```
+})

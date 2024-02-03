@@ -2,8 +2,9 @@ import constants from "../constants.js";
 
 
 const errorHandler = (err, req, res, next) => {
-    const statusCode = res.statusCode ? res.statusCode : 500;
-
+    const statusCode = res.statusCode ? res.statusCode : 500; // here we are checking if status code is set or not if not we are setting it to 500 
+    // we can also use err.status but we are using res.status because we are setting status code in our controllers
+    
     switch(statusCode){
         case constants.VALIDATION_ERROR:
             res.json({
