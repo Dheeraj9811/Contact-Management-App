@@ -1,3 +1,50 @@
+# parameter passing
+    -> we can pass multiple parameter in url
+    eg:
+        ```app.get('/api/contacts/:id/:name', (req, res) => {
+            console.log(req.params);
+            res.status(200).json({ message: 'Hello World' });
+        });```
+    if we want to name parameter not to be mandatory then we can use '?' after parameter name. Now if name not passed it is undefined
+    eg:
+        ```app.get('/api/contacts/:id/:name?', (req, res) => {
+            console.log(req.params);
+            res.status(200).json({ message: 'Hello World' });
+        });```
+
+    other way to pass parameter is 
+    2) using query string
+    3) using body
+
+# middleware
+    defination : middleware is a function that has access to the request and response object. It can modify the request and response object.
+    It can end the request response cycle. It can call the next middleware in the stack.
+
+    keyword: "use" is used to use middleware
+    eg-> 
+        ```app.use((req, res, next) => {
+            console.log('Middleware 1');
+            next();
+        });
+
+    ### route handler is also a middleware:
+     
+    import express from 'express';
+    const router = express.Router();
+    
+    it as 2 parameter first one is if url is matched then it will be called and second is function to call for that url
+
+    eg:
+        ```app.get('/api/contacts', (req, res) => {
+            console.log('Route Handler');
+            res.status(200).json({ message: 'Hello World' });
+        });```
+    
+    you can see eg in server.js file where I am using ,middle ware to route to the right place
+    app.use('/api/contacts', contactRoutes);   if url is /api/contacts then it will call contactRoutes function
+
+    in contactRoutes.js file I am using route handler to route to the right place
+
 using mongoose for mogodb , mongoose give us predefine function so we dont have to code much here
     -> since javascript is an asynchronous and concurrent programming language that offers a lot of flexibility
     but we need asyanc await to make it synchronous 
@@ -68,8 +115,11 @@ using mongoose for mogodb , mongoose give us predefine function so we dont have 
 
 # error handeling
     To handel error globally we can use middleware with '{must-> 4 paramenter}' {error, req, res, next} 
-    so to use error handeling middleware we have to use next() to pass the error to next middleware , pass anthing to next(anything) automatically go for error handeling middleware
-    but if we are using async await then we have to use asyncHandler automatically pass the error to next middleware so we dont have to use next() to pass the error to next middleware
+    so to use error handeling middleware we have to use next() to pass the error to next middleware , 
+    pass anthing to next(anything) automatically go for error handeling middleware but 
+
+    -> if we are using async await then we have to use asyncHandler automatically pass the error to next middleware so we dont have to use next() to pass the error to next middleware
+
     eg: blow
         
         ```const createContact = asyncHandler(async function (req, res) {
