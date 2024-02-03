@@ -38,3 +38,70 @@ using mongoose for mogodb , mongoose give us predefine function so we dont have 
     });'''
 
 
+# async vs asyncHandler
+
+<!-- lsit -->
+    <h2><code>async</code> Keyword:</h2>
+
+<ol>
+    <li>
+        <strong>Definition:</strong>
+        <ul>
+            <li>The <code>async</code> keyword is a JavaScript language feature used to define asynchronous functions.</li>
+            <li>Asynchronous functions return promises, allowing the use of the <code>await</code> keyword inside their bodies.</li>
+        </ul>
+    </li>
+    
+    <li>
+        <strong>Purpose:</strong>
+        <ul>
+            <li>Enables the creation of functions that perform asynchronous operations.</li>
+            <li>Allows the use of <code>await</code> to wait for promises to resolve without blocking the execution of the entire program.</li>
+        </ul>
+    </li>
+    
+    <li>
+        <strong>Usage Example:</strong>
+        <pre><code>
+async function fetchData() {
+    // Asynchronous operations using await
+    const result = await someAsyncFunction();
+    return result;
+}
+        </code></pre>
+    </li>
+</ol>
+
+<h2><code>asyncHandler</code>:</h2>
+
+<ol>
+    <li>
+        <strong>Definition:</strong>
+        <ul>
+            <li><code>asyncHandler</code> is a utility function commonly used in web development, especially in Node.js applications.</li>
+            <li>It wraps asynchronous route handlers and ensures that any errors thrown during the asynchronous operation are caught and forwarded to the error-handling middleware.</li>
+        </ul>
+    </li>
+
+    <li>
+        <strong>Purpose:</strong>
+        <ul>
+            <li>Simplifies error handling in asynchronous route handlers.</li>
+            <li>Avoids the need to wrap every asynchronous route handler with a try-catch block.</li>
+        </ul>
+    </li>
+
+    <li>
+        <strong>Usage Example in an Express.js Route Handler:</strong>
+        <pre><code>
+const asyncHandler = (fn) => (req, res, next) =>
+    Promise.resolve(fn(req, res, next)).catch(next);
+
+// Example usage in an Express.js route handler
+app.get('/someRoute', asyncHandler(async (req, res) => {
+    const result = await someAsyncFunction();
+    res.json(result);
+}));
+        </code></pre>
+    </li>
+</ol>
