@@ -1,0 +1,4 @@
+node_modules
+.env
+qrmaker.js
+qr_img_www.google.com.png
