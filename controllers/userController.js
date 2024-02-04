@@ -62,15 +62,15 @@ const loginUser = asyncHandler(async function (req, res) {
     // check password with hashed password
     if(user && (await bcrypt.compare(password, user.password))){
         // create a token
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: '30d',
-        });
-        res.status(200).json({
-            _id: user._id,
-            username: user.username,
-            email: user.email,
-            token,
-        });
+        const accesToken = jwt.sign({
+            user:{
+                username: user.username,
+                email: user.email,
+                userId: user._id,
+            },
+        },process.env.ACCESS_TOKEN_SECERT, {expiresIn: '20m'});
+        
+        res.status(200).json({accesToken});
     }
     else{
         res.status(401);
@@ -85,7 +85,7 @@ const loginUser = asyncHandler(async function (req, res) {
 // @route GET /api/users/current
 // @access Private
 const currentUser = asyncHandler(async function (req, res) {
-    res.json({ message: "current user info" });
+    res.json(req.user);
     res.sendStatus(200);
 });
 

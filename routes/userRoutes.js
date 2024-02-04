@@ -1,5 +1,6 @@
 import express from 'express';
 import contactController from "../controllers/userController.js";
+import validateToken from "../middleware/validateTokenHandler.js";
 
 const {
     registerUser,
@@ -13,6 +14,6 @@ router.post("/register", registerUser);
 
 router.post("/login", loginUser);
 
-router.get("/current", currentUser);
+router.get("/current",validateToken, currentUser);
 
 export default router;

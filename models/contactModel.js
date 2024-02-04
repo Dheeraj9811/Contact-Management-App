@@ -4,6 +4,11 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 // Create a schema or blueprint
 const contactSchema = Schema({
+    user_id:{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     name: {
         type: String,
         required: [true,"Please add a required field" ],
